@@ -1,26 +1,45 @@
+/* 
+ * GLOBAL STYLES
+ * =============
+ * Main stylesheet for the HRMS application
+ * Includes: Base styles, animations, transitions, and utility classes
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* 
+ * ROOT CONFIGURATION
+ * Typography and rendering optimizations
+ */
 :root {
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 
+ * BODY BACKGROUND
+ * Multi-layered gradient background for visual depth
+ */
 body {
   margin: 0;
   min-height: 100vh;
   @apply bg-gray-50 dark:bg-gray-900;
   background-attachment: fixed;
   position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll from animations */
 }
 
-/* Subtle animated background pattern */
+/* 
+ * ANIMATED BACKGROUND LAYER 1
+ * Radial gradient spots that create ambient lighting effect
+ */
 body::before {
   content: '';
   position: fixed;
@@ -29,14 +48,18 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 30%),
-    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 30%),
-    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 40%);
+    radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 45%);
   pointer-events: none;
   z-index: 0;
+  animation: ambientPulse 15s ease-in-out infinite; /* Subtle breathing effect */
 }
 
-/* Subtle gradient overlay for depth */
+/* 
+ * ANIMATED BACKGROUND LAYER 2
+ * Diagonal gradient overlay for additional depth
+ */
 body::after {
   content: '';
   position: fixed;
@@ -44,21 +67,36 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, transparent 50%, rgba(168, 85, 247, 0.02) 100%);
+  background: linear-gradient(
+    135deg, 
+    rgba(59, 130, 246, 0.03) 0%, 
+    transparent 50%, 
+    rgba(168, 85, 247, 0.03) 100%
+  );
   pointer-events: none;
   z-index: 0;
 }
 
-/* Smooth scrolling */
+/* 
+ * SMOOTH SCROLLING
+ * Enables smooth page navigation
+ */
 html {
   scroll-behavior: smooth;
 }
 
+/* 
+ * SCROLL MARGIN
+ * Prevents content from hiding behind fixed headers
+ */
 * {
   scroll-margin-top: 100px;
 }
 
-/* Custom scrollbar */
+/* 
+ * CUSTOM SCROLLBAR STYLING
+ * Modern, themed scrollbars for better aesthetics
+ */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -70,30 +108,57 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-600;
+  @apply bg-gradient-to-b from-primary-400 to-primary-600 dark:from-primary-500 dark:to-primary-700;
   border-radius: 10px;
   border: 2px solid transparent;
   background-clip: content-box;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400 dark:bg-gray-500;
+  @apply from-primary-500 to-primary-700 dark:from-primary-400 dark:to-primary-600;
+  border: 1px solid transparent;
 }
 
-/* Smooth Transitions */
+/* 
+ * GLOBAL TRANSITIONS
+ * Smooth color transitions for theme switching
+ */
 * {
-  @apply transition-colors duration-200;
+  @apply transition-colors duration-300;
 }
 
+/* 
+ * INTERACTIVE ELEMENT TRANSITIONS
+ * Enhanced transitions for buttons, inputs, and links
+ */
 button, a, input, select, textarea {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Card Animation */
+/* 
+ * BACKGROUND AMBIENT PULSE ANIMATION
+ * Subtle breathing effect for background gradients
+ */
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* 
+ * CARD FADE-IN-UP ANIMATION
+ * Used for page elements and cards entering the viewport
+ */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -102,14 +167,17 @@ button, a, input, select, textarea {
 }
 
 .animate-fadeInUp {
-  animation: fadeInUp 0.4s ease-out;
+  animation: fadeInUp 0.6s ease-out;
 }
 
-/* Stagger animation for cards */
+/* 
+ * SCALE FADE-IN ANIMATION
+ * Scale up effect for modal and card elements
+ */
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
@@ -118,20 +186,32 @@ button, a, input, select, textarea {
 }
 
 .animate-fadeInScale {
-  animation: fadeInScale 0.3s ease-out;
+  animation: fadeInScale 0.4s ease-out;
 }
 
-/* Pulse Animation for Active Elements */
+/* 
+ * SUBTLE PULSE ANIMATION
+ * Used for highlighting active/loading elements
+ */
 @keyframes pulse-subtle {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.9;
+    opacity: 0.85;
+    transform: scale(1.02);
   }
 }
 
-/* Shimmer Loading Effect */
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* 
+ * SHIMMER LOADING EFFECT
+ * Animated shimmer for skeleton loaders
+ */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -145,14 +225,17 @@ button, a, input, select, textarea {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.3) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 2.5s infinite;
 }
 
-/* Gradient Animation */
+/* 
+ * GRADIENT SHIFT ANIMATION
+ * Animated gradients for buttons and backgrounds
+ */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -167,51 +250,112 @@ button, a, input, select, textarea {
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
+  animation: gradientShift 4s ease infinite;
 }
 
-/* Focus Styles */
+/* 
+ * SLIDE-IN ANIMATIONS
+ * Directional slide-in effects
+ */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* 
+ * FOCUS STYLES
+ * Enhanced focus states for accessibility
+ */
 input:focus,
 select:focus,
 textarea:focus {
   @apply outline-none ring-2 ring-primary-500 ring-opacity-50;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
-/* Button Hover Effects */
+/* 
+ * BUTTON HOVER & ACTIVE EFFECTS
+ * Micro-interactions for better user feedback
+ */
 button:not(:disabled):hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 button:not(:disabled):active {
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Row Hover */
+/* Disabled button state */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* 
+ * TABLE ROW HOVER EFFECT
+ * Smooth elevation on hover
+ */
 tbody tr {
-  transition: all 0.2s ease;
-}
-
-tbody tr:hover {
-  transform: scale(1.001);
-}
-
-/* Card Hover */
-.card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
+tbody tr:hover {
+  transform: scale(1.002);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  position: relative;
 }
 
-/* Scroll fade in animation */
+/* 
+ * CARD HOVER EFFECT
+ * Lift effect for card components
+ */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+ * SCROLL FADE-IN ANIMATION
+ * Elements fade in as they enter viewport
+ */
 @keyframes scrollFadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -220,14 +364,20 @@ tbody tr:hover {
 }
 
 .scroll-animate {
-  animation: scrollFadeIn 0.6s ease-out forwards;
+  animation: scrollFadeIn 0.8s ease-out forwards;
 }
 
-/* Staggered animation for cascade effect */
+/* 
+ * STAGGERED ANIMATION
+ * Sequential animation for list items
+ * Each child element animates with a slight delay
+ */
 .stagger-item {
-  animation: scrollFadeIn 0.5s ease-out forwards;
+  animation: scrollFadeIn 0.6s ease-out forwards;
+  opacity: 0; /* Start hidden */
 }
 
+/* Progressive delay for each item (up to 12 items) */
 .stagger-item:nth-child(1) { animation-delay: 0.05s; }
 .stagger-item:nth-child(2) { animation-delay: 0.1s; }
 .stagger-item:nth-child(3) { animation-delay: 0.15s; }
@@ -236,25 +386,74 @@ tbody tr:hover {
 .stagger-item:nth-child(6) { animation-delay: 0.3s; }
 .stagger-item:nth-child(7) { animation-delay: 0.35s; }
 .stagger-item:nth-child(8) { animation-delay: 0.4s; }
+.stagger-item:nth-child(9) { animation-delay: 0.45s; }
+.stagger-item:nth-child(10) { animation-delay: 0.5s; }
+.stagger-item:nth-child(11) { animation-delay: 0.55s; }
+.stagger-item:nth-child(12) { animation-delay: 0.6s; }
 
-/* Parallax effect */
+/* 
+ * FLOATING ANIMATION
+ * Gentle up-and-down motion for decorative elements
+ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 
+ * PARALLAX EFFECT
+ * Hardware-accelerated transforms
+ */
 .parallax {
   transform: translateZ(0);
   will-change: transform;
 }
 
-/* Glass morphism effect */
+/* 
+ * GLASS MORPHISM EFFECT
+ * Frosted glass appearance for modern UI
+ */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .dark .glass-effect {
-  background: rgba(31, 41, 55, 0.7);
+  background: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.3);
 }
 
-/* Responsive utilities */
+/* 
+ * GLOW EFFECT
+ * Animated glow for emphasis
+ */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 
+ * RESPONSIVE UTILITIES
+ * Hide elements based on screen size
+ */
 @media (max-width: 768px) {
   .hide-on-mobile {
     display: none;
@@ -265,4 +464,42 @@ tbody tr:hover {
   .hide-on-tablet {
     display: none;
   }
+}
+
+/* 
+ * VIEW TRANSITION (for smooth page changes)
+ * Progressive enhancement for browsers that support it
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    view-transition-name: page-transition;
+  }
+}
+
+/* 
+ * CUSTOM BADGE STYLES
+ * Reusable badge components
+ */
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+.badge-primary {
+  @apply bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800;
+  @apply dark:from-primary-900/40 dark:to-primary-800/40 dark:text-primary-300;
+}
+
+.badge-success {
+  @apply bg-gradient-to-r from-green-100 to-emerald-100 text-green-800;
+  @apply dark:from-green-900/40 dark:to-emerald-900/40 dark:text-green-300;
+}
+
+.badge-danger {
+  @apply bg-gradient-to-r from-red-100 to-rose-100 text-red-800;
+  @apply dark:from-red-900/40 dark:to-rose-900/40 dark:text-red-300;
 }
