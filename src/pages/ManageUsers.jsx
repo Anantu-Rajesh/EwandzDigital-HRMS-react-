@@ -127,8 +127,8 @@ const ManageUsers = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 animate-fadeInUp">
+      <div className="flex items-center justify-between scroll-animate">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Manage Users</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
@@ -146,7 +146,7 @@ const ManageUsers = () => {
 
       {/* Create User Form */}
       {showCreateForm && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 scroll-animate">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Create New User Account
           </h3>
@@ -214,7 +214,7 @@ const ManageUsers = () => {
       )}
 
       {/* Users List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 scroll-animate">
         <div className="p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
             Existing Accounts
@@ -235,10 +235,11 @@ const ManageUsers = () => {
               </div>
 
               {/* User Rows */}
-              {users.map((userItem) => (
+              {users.map((userItem, index) => (
                 <div
                   key={userItem.username}
-                  className="grid grid-cols-4 gap-4 py-4 border-b border-gray-200 dark:border-gray-700 items-center"
+                  className={`grid grid-cols-4 gap-4 py-4 border-b border-gray-200 dark:border-gray-700 items-center stagger-item`}
+                  style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                 >
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-full bg-primary-600 dark:bg-primary-500 flex items-center justify-center text-white font-bold">

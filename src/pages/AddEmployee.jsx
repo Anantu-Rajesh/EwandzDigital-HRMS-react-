@@ -86,12 +86,14 @@ const AddEmployee = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Add New Employee</h1>
-      <p className="text-gray-600 dark:text-gray-400">Choose your preferred method to add employees.</p>
+    <div className="space-y-6 animate-fadeInUp">
+      <div className="scroll-animate">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Add New Employee</h1>
+        <p className="text-gray-600 dark:text-gray-400">Choose your preferred method to add employees.</p>
+      </div>
 
       {/* Tabs */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 scroll-animate">
         <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="flex space-x-8 px-6" aria-label="Tabs">
             {[

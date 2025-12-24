@@ -115,18 +115,18 @@ const EmployeeProfile = () => {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fadeInUp">
       {/* Back Button */}
       <button
         onClick={() => navigate('/employees')}
-        className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+        className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors scroll-animate"
       >
         <ArrowLeft className="w-5 h-5" />
         <span>Back to Employee List</span>
       </button>
 
       {/* Profile Header Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 scroll-animate">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-20 h-20 rounded-full bg-primary-600 dark:bg-primary-500 flex items-center justify-center text-white text-2xl font-bold">
@@ -157,7 +157,7 @@ const EmployeeProfile = () => {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 scroll-animate">
         <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="flex space-x-8 px-6" aria-label="Tabs">
             {tabs.map((tab) => (
